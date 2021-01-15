@@ -1,0 +1,54 @@
+{
+    "mode": "DEV",
+    "general": {
+        "app_version": "1.0.0",
+        "session_life_time": "1h",
+        "secure_secret_key": "75ABC8764512FAQBCE234765623DFA45",
+        "secure_secret_iv": "5422AFECBCBXB675",
+        "secure_token_key": "75ABC8764512FADBCE23476562ZDFA45",
+        "secure_token_iv": "5422AFEEBCBCB675",
+        "default_secret_expire": 3600,
+        "default_token_expire": 3600,
+        "password_secure_cost": 10
+    },
+    "services": {
+        "auth": {
+            "port": 9091
+        },
+        "students": {
+            "port": 9092
+        },
+        "logger": {
+            "port": 9021,
+            "events": {
+                "path": "./logger/events"
+            },
+            "logs": {
+                "path": "./logger/logs"
+            }
+        }
+    },
+    "database": {
+        "mongo_url_connect": "mongodb://mongo:27017/jhuygensdb",
+        "name": "jhuygensdb",
+        "collections": {
+            "users": "users"
+        }
+    },
+    "messages": {
+        "default": {
+            "title": "Operación",
+            "error": "¡Lo sentimos!",
+            "error_description": "Ha ocurrido un error intentalo nuevamente.",
+            "invalid_session": "La sesión es inválida o ha sido caducada."
+        }
+    },
+    "cache": {
+        "server_name":"redis",
+        "host": "cache:6397",
+        "user": "root",
+        "password": "root"
+    },
+    "storage": {},
+    "integrations": {}
+}
