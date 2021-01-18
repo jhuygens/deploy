@@ -1,22 +1,35 @@
 {
     "mode": "DEV",
     "general": {
-        "app_version": "1.0.0",
+        "app_version": "1.0.7",
         "session_life_time": "1h",
-        "secure_secret_key": "75ABC8764512FAQBCE234765623DFA45",
-        "secure_secret_iv": "5422AFECBCBXB675",
-        "secure_token_key": "75ABC8764512FADBCE23476562ZDFA45",
-        "secure_token_iv": "5422AFEEBCBCB675",
+        "secure_secret_key": "75ABC8764512FADBCE234765623DFA45",
+        "secure_secret_iv": "5422AFECBCBCB675",
+        "secure_token_key": "75ABC8764512FADBCE234765623DFA47",
+        "secure_token_iv": "5422AFECBCBCB675",
         "default_secret_expire": 3600,
         "default_token_expire": 3600,
-        "password_secure_cost": 10
+        "default_cache_expire": 3600,
+        "password_secure_cost": 10,
+        "host": "http://localhost:9092",
+        "port": 9001
+    },
+    "searchers": {
+        "itunes": "itunes",
+        "tvmaze": "tvmaze",
+        "crcind": "crcind"
     },
     "services": {
         "auth": {
             "port": 9091
         },
-        "students": {
-            "port": 9092
+        "search": {
+            "port": 9092,
+            "paging": {
+                "search": {
+                    "url": "http://localhost:9092/v1/search"
+                }
+            }
         },
         "logger": {
             "port": 9021,
@@ -44,11 +57,35 @@
         }
     },
     "cache": {
-        "server_name":"redis",
-        "host": "cache:6397",
+        "host": "redis:6379",
         "user": "root",
-        "password": "root"
+        "password": "root",
+        "expire_time": 3600
     },
     "storage": {},
-    "integrations": {}
+    "integrations": {
+        "itunes": {
+            "endpoint": "https://itunes.apple.com/search",
+            "timeout": 20
+        },
+        "tvmaze": {
+            "endpoint": "http://api.tvmaze.com/search/shows",
+            "timeout": 20
+        },
+        "crcind": {
+            "endpoint": "http://www.crcind.com/csp/samples/SOAP.Demo.CLS",
+            "action": "GetByNameResponse",
+            "timeout": 20
+        },
+        "logger": {
+            "events": {
+                "endpoint": "http://localhost:9021/logger/events",
+                "timeout": 20
+            },
+            "logs": {
+                "endpoint": "http://localhost:9021/logger/logs",
+                "timeout": 20
+            }
+        }
+    }
 }

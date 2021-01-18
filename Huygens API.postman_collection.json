@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "0d5dbb3f-1e37-45c1-9991-d470b9ce4cd3",
+		"name": "Huygens API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"info\": {\n        \"device_uuid\": \"23DAFA-ASDFF-A13434..\",\n        \"device\": \"web\",\n        \"os\": \"iOS\",\n        \"os_version\": \"1.0.0\",\n        \"timezone\": \"UTC-6\",\n        \"lang\": \"en\",\n        \"app_version\": \"1.0.0\",\n        \"app_name\": \"Example App\"\n    },\n    \"content\": {\n        \"email\": \"example@huygens.com\",\n        \"password\": \"holamundo\",\n        \"app_name\": \"Hola mundo\",\n        \"redirect_urls\": [\n            \"http://mysite.com/callback/\"\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "709244e9aa1f65d1a9fcb0a97b8ba687b8cf4f8d916961055dae7e0e16c26e21c6128bf1df1164d4da2ad70cc37f4a2483ae3c2690ad90a2fd2b061bb3d4fb59083a9508f3267d1a63c33348a578e451d7a3bbfe964cad016ca3bd20cd6ab76bc9800b23f5805eecc14cfd7ac395e988e50f2ae9b3f853103e27c79488784698",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "674b1cf4b5bd17742cc9984ab759b03cdaf70356b2682048853f6d984f1e43ae",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"info\": {\n        \"device_uuid\": \"23DAFA-ASDFF-A13434..\",\n        \"device\": \"web\",\n        \"os\": \"iOS\",\n        \"os_version\": \"1.0.0\",\n        \"timezone\": \"UTC-6\",\n        \"lang\": \"en\",\n        \"app_version\": \"1.0.0\",\n        \"app_name\": \"Example App\"\n    },\n    \"content\": {\n        \"garant_type\": \"authorization_code\",\n        \"client_id\": \"674b1cf4b5bd17742cc9984ab759b03cdaf70356b2682048853f6d984f1e43ae\",\n        \"refresh_token\": \"69a138e01af1b9fbc1dc5a6007d00c6900bb16230759800541221ab201c6ada8fb4c131adbb766cbc3ed58a871f5ec6f83f88090bb84abb19cc905b9587b917dc8aff6bf3ce030ecf51208fd82d3b15b94c1430e77e09a88034a1fae0caaf20c79b6790bbe8dcc0f444bed23f67164f82c277b3a99570f70f41f818fa91cb30cb2e81591162bd9d3d0f98f1ac480527c76c6fe19b824db211c04ef3007faaa2f\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset secret",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "69a138e01af1b9fbc1dc5a6007d00c6900bb16230759800541221ab201c6ada8fb4c131adbb766cbc3ed58a871f5ec6f83f88090bb84abb19cc905b9587b917d1a74cabeadb91b520c2a6d0ccaadbf539fadce83b167c19b15ded65d29b4a94d2a987dc2a639ff0ed9abad0e6bf1b64d168279d606023400ee02c030c3b40c294b93bf8d86f70b86b84d16512637d37cef96e9fa264487e2a780892830a42b71",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"info\": {\n        \"device_uuid\": \"23DAFA-ASDFF-A13434..\",\n        \"device\": \"web\",\n        \"os\": \"iOS\",\n        \"os_version\": \"1.0.0\",\n        \"timezone\": \"UTC-6\",\n        \"lang\": \"en\",\n        \"app_version\": \"1.0.0\",\n        \"app_name\": \"Example App\"\n    },\n    \"content\": {\n        \"client_id\": \"{{clientID}}\",\n        \"secret_key\": \"{{secretKey}}\",\n        \"password\": \"holamundo\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/reset_secret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"reset_secret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "0137bfb643e2e53730db0b935d1f6276bb63f4989c8deaddd67cedc827bc58525a582052a91cec12a607060bc3e542d090e64dcea8fca9a4b3f86d33aebfa145277b7144f7bece332a2702eb75a567b4284c20adb8d8dd81da976e5eda1bdcc437cbabb197c9bb1178054021b8f0c52b05718d01b0685b29a8fcec495dc8440cfcaf444cf55ebe2fd8e1155d13eff3cb3f863b2774b5dd9bc787de0d11e9d8e3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/search?q=\"Wish you wish here\"&type=alll&library=all&offset=0&limit=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "\"Wish you wish here\""
+						},
+						{
+							"key": "type",
+							"value": "alll"
+						},
+						{
+							"key": "library",
+							"value": "all"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
