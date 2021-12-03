@@ -1,0 +1,82 @@
+#cloud-config
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+users:
+  - name: narberal
+    gecos: Narberal Gamma Admin
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC31O5KhDZutCZqZVGonrXjChYx7KYElZyi0BNkBwCQibafCYqTGmt0uq3U8aulagKfwo6Ec+SWXGCgeXFmP0TEjendoJp8iXpIYMtTBg5uka/Kzfhv6gYf0vpOvX+mA4B6gFPYCqUTURRlRvoULLq2LV231Pn2quBtrqhUom+AFbqLfwvtNnF5CE8jyw6IG7L9VANxdrIDmrSulXAz8eZ9mQUu3kU4HUMj6h6k6ddCqmTUNQjmf8kfhb738DH66oCPcpdcN90rc3kIuyPGXwT2PBpjLnSd64JIKCEfrTQG15Gg/I6lmyOHQ+RdLHVdSun+GDBYyN/T69hmI9gEMd2/+OlsT68DlVChoSQGYdUr1KJAVvliSLcqi7U6XPRngYm4w2FSjHGILje928bZDEkk2EqRIHW+1H20wt0YGIn3xR3APoe0ulgNWPSb3wXDSnJKVEV7LN/72eoInm4+/TnHNCB6sdN39PFltLNyEzDJsx4yLh9iKAamzMW5lZVem0FQ9YQR3sZmsJWLosMfhoFK/HNmogHRm4cInysOTqUYXfxN761j8Hd50SkOlAO6dbgeX+p+kdJ6kdKxrnp5agearRNKriTlPnNzNQfl4S+HTvuN+JqFW1Trh8qgjxYU9MfC7qy6JdfUXdwQLnUZH9C1JNQoQ3ltf4BFSVyQ4oqFHQ== josue@Josue.local
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+
+coreos:
+  units:
+    - name: iptables-restore.service
+      enable: true
+      command: start
+
+write_files:
+  - path: /etc/ssh/sshd_config
+    content: |
+         Port 10674
+         Protocol 2
+         HostKey /etc/ssh/ssh_host_rsa_key
+         HostKey /etc/ssh/ssh_host_dsa_key
+         HostKey /etc/ssh/ssh_host_ecdsa_key
+         HostKey /etc/ssh/ssh_host_ed25519_key
+         UsePrivilegeSeparation yes
+         KeyRegenerationInterval 3600
+         ServerKeyBits 1024
+         SyslogFacility AUTH
+         LogLevel INFO
+         LoginGraceTime 120
+         PermitRootLogin no
+         StrictModes yes
+         RSAAuthentication yes
+         PubkeyAuthentication yes
+         IgnoreRhosts yes
+         RhostsRSAAuthentication no
+         HostbasedAuthentication no
+         PermitEmptyPasswords no
+         ChallengeResponseAuthentication no
+         X11Forwarding yes
+         X11DisplayOffset 10
+         PrintMotd no
+         PrintLastLog yes
+         TCPKeepAlive yes
+         AcceptEnv LANG LC_*
+         Subsystem sftp /usr/lib/openssh/sftp-server
+         UsePAM yes
+         AllowUsers narberal
+
+package_update: true
+packages:
+  - iptables-persistent
+  - docker.io
+  - docker-compose
+
+runcmd:
+  # apply firewall rules 
+  - sudo iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+  - sudo iptables -A OUTPUT -p icmp --icmp-type echo-reply -j DROP
+  - sudo iptables -A OUTPUT -p tcp --tcp-flag ALL RST,ACK -j DROP
+  - sudo iptables -A INPUT -p tcp --tcp-flag ALL NONE -j DROP
+  - sudo iptables -A INPUT -p tcp -m tcp -m multiport --dports 80,443,10674 -j ACCEPT
+  - sudo iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+  - sudo iptables -A INPUT -j DROP
+  - sudo iptables -A OUTPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+  - sudo iptables -A OUTPUT -j DROP
+  - sudo iptables -A FORWARD -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+  - sudo iptables -A FORWARD -j DROP
+  - iptables-save > /etc/iptables/rules.v4
+  # install huygens api
+  - mkdir -p /home/narberal/apps/huygens/
+  - cd /home/narberal/apps/huygens/
+  - git clone https://github.com/jhuygens/deploy.git
+  - cd /home/narberal/apps/huygens/deploy/docker-compose
+  - docker-compose up -d
+
+
+#power_state:
+  #mode: reboot
+  #message: Restarting after installing docker & docker-compose
