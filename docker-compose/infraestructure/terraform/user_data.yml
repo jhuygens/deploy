@@ -4,7 +4,7 @@ users:
   - name: narberal
     gecos: Narberal Gamma Admin
     ssh-authorized-keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC31O5KhDZutCZqZVGonrXjChYx7KYElZyi0BNkBwCQibafCYqTGmt0uq3U8aulagKfwo6Ec+SWXGCgeXFmP0TEjendoJp8iXpIYMtTBg5uka/Kzfhv6gYf0vpOvX+mA4B6gFPYCqUTURRlRvoULLq2LV231Pn2quBtrqhUom+AFbqLfwvtNnF5CE8jyw6IG7L9VANxdrIDmrSulXAz8eZ9mQUu3kU4HUMj6h6k6ddCqmTUNQjmf8kfhb738DH66oCPcpdcN90rc3kIuyPGXwT2PBpjLnSd64JIKCEfrTQG15Gg/I6lmyOHQ+RdLHVdSun+GDBYyN/T69hmI9gEMd2/+OlsT68DlVChoSQGYdUr1KJAVvliSLcqi7U6XPRngYm4w2FSjHGILje928bZDEkk2EqRIHW+1H20wt0YGIn3xR3APoe0ulgNWPSb3wXDSnJKVEV7LN/72eoInm4+/TnHNCB6sdN39PFltLNyEzDJsx4yLh9iKAamzMW5lZVem0FQ9YQR3sZmsJWLosMfhoFK/HNmogHRm4cInysOTqUYXfxN761j8Hd50SkOlAO6dbgeX+p+kdJ6kdKxrnp5agearRNKriTlPnNzNQfl4S+HTvuN+JqFW1Trh8qgjxYU9MfC7qy6JdfUXdwQLnUZH9C1JNQoQ3ltf4BFSVyQ4oqFHQ== josue@Josue.local
+      - ssh-rsa ...
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: sudo
     shell: /bin/bash
