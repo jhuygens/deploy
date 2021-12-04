@@ -4,7 +4,7 @@ users:
   - name: narberal
     gecos: Narberal Gamma Admin
     ssh-authorized-keys:
-      - ssh-rsa ...
+      - ssh-rsa <EXAMPLE>...
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: sudo
     shell: /bin/bash
